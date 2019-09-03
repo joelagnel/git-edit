@@ -88,7 +88,7 @@ END2
 chmod +x /tmp/drop-commit.sh
 
 while [ 1 ]; do # START WHILE
-git log --oneline | head -n 100 > /tmp/ncurses-input-tmp
+git log --no-decorate --oneline | head -n 100 > /tmp/ncurses-input-tmp
 
 chmod +x $spath/lib/tui.py
 $spath/lib/tui.py
@@ -101,7 +101,7 @@ function usage()
   echo "p:  Edit the whole patch in vim"
   echo "r:  Edit the commit message of patch in vim"
   echo "e:  Amend the patch using an interactive rebase (after this step, do 'git rebase --continue')"
-  echo "<Enter>: Show the patch using 'git show'"
+  echo "o or <Enter>: Show the patch using 'git show'"
   echo "R:  Revert the <commit>"
   echo "c:  Checkout this <commit>"
   echo "s:  Show the diff stat of the <commit>"
@@ -137,7 +137,7 @@ if [ -f /tmp/ncurses-output ]; then
 	elif [ $cmd == "r" ]; then
                 EDITOR=/tmp/igrc.py git rebase -i $commit^
 	# Show the commit
-	elif [ $cmd == "10" ]; then
+	elif [ $cmd == "10" -o $cmd == "o" ]; then
 		git show $commit
                 press_any_key
 	# Revert
