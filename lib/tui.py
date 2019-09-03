@@ -80,9 +80,9 @@ class Screen(object):
             self.display()
 
             ch = self.window.getch()
-            if ch == curses.KEY_UP:
+            if ch == curses.KEY_UP or chr(ch) == 'k':
                 self.scroll(self.UP)
-            elif ch == curses.KEY_DOWN:
+            elif ch == curses.KEY_DOWN or chr(ch) == 'j':
                 self.scroll(self.DOWN)
             elif ch == curses.KEY_PPAGE:
                 self.paging(self.UP)
